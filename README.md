@@ -6,6 +6,12 @@ The board operates from a **24 V DC supply**. An onboard buck converter produces
 
 The design combines power conversion, keypad interfacing, LED-matrix drivers, and PWM signal distribution on a single PCB. The repository contains Altium Designer source files, fabrication outputs, a BOM, and original Russian engineering documentation.
 
+## My Contribution
+
+I independently developed the **PWM Controller Board hardware**, including the schematic, component selection, PCB layout, and engineering documentation in Altium Designer. I also personally assembled and soldered the prototype.
+
+I checked its operation with the illuminated matrix keypad and an external LED driver, and observed the brightness-control PWM signals on an oscilloscope.
+
 ## Block Diagram
 
 [![Block diagram](hardware/images/block-diagram.png)](hardware/images/block-diagram.png)
@@ -26,7 +32,7 @@ The regulator circuit also includes input filtering, an enable divider, a soft-s
 
 DD1 is an **STM32F103C8T6** in an LQFP-48 package. The external clock circuit uses a **16 MHz crystal ZQ1** with C2/C3. Local capacitors decouple the digital, analog, and backup supply connections. R27 pulls BOOT0 low, and C6 is connected to the reset line.
 
-The four-pin XS3 connector exposes **3.3 V, GND, SWDIO, and SWCLK** for programming and debugging. Operating-mode logic, keypad scanning, indicator patterns, and PWM timing are implemented in firmware.
+The four-pin XS3 connector exposes **3.3 V, GND, SWDIO, and SWCLK** for programming and debugging. The microcontroller handles operating-mode selection, keypad scanning, indicator updates, and PWM generation.
 
 ### Keypad and Indicator Interface
 
@@ -85,15 +91,17 @@ These are microcontroller-level control outputs for external driver circuits. Th
 
 The two-layer PCB groups the DC/DC converter near the power input, places the microcontroller near the centre, and locates the keypad drivers alongside the panel connector. Two rows of PWM connectors provide access to all eight channels. Surface-mount circuitry is combined with through-hole connectors and four mounting holes.
 
-## Assembled Board
+## Assembled Board and Demonstration
 
-> **Photograph of the assembled board / test bench — to be added.**
+[![PWM controller connected to Driver4CH and an LED load](hardware/images/test-bench.jpg)](hardware/images/test-bench.jpg)
 
-<!-- Replace the placeholder above after adding the photograph:
-[![Assembled PWM controller board](hardware/images/pcb-real.jpg)](hardware/images/pcb-real.jpg)
--->
+The assembled controller is connected to an illuminated matrix keypad and an external [Driver4CH LED driver](https://github.com/sovetnikovmm/driver4ch). The keypad selects operating modes and **eight brightness steps**. The controller updates the panel indicators and the PWM duty cycles associated with the selected mode.
 
-A demonstration setup connects the 24 V supply, illuminated keypad, and external PWM-controlled drivers. Selecting a mode on the keypad changes the panel indication and the corresponding PWM output settings.
+### PWM Waveforms
+
+[![Oscilloscope showing brightness-control PWM signals beside the controller and keypad](hardware/images/pwm-waveforms.jpg)](hardware/images/pwm-waveforms.jpg)
+
+The oscilloscope photograph shows two brightness-control PWM signals with different duty cycles, alongside the operating keypad. It illustrates the output signals used to set LED brightness through external driver stages.
 
 ## Bill of Materials
 
