@@ -93,7 +93,7 @@ The two-layer PCB groups the DC/DC converter near the power input, places the mi
 
 ## Assembled Board and Demonstration
 
-[![PWM controller connected to Driver4CH and an LED load](hardware/images/test-bench.jpg)](hardware/images/test-bench.jpg)
+[![PWM controller connected to Driver4CH and an LED load](hardware/images/pwm-controller-board_pcb-real.jpg)](hardware/images/pwm-controller-board_pcb-real.jpg)
 
 The assembled controller is connected to an illuminated matrix keypad and an external [Driver4CH LED driver](https://github.com/sovetnikovmm/driver4ch). The keypad selects operating modes and **eight brightness steps**. The controller updates the panel indicators and the PWM duty cycles associated with the selected mode.
 
